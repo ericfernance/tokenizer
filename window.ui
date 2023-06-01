@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
     <template class="TokenizerAppWindow" parent="GtkApplicationWindow">
-        <property name="title" translatable="yes">Example Application</property>
-        <property name="default-width">1200</property>
-        <property name="default-height">600</property>
+        <property name="title" translatable="yes">Tokenizer</property>
+        <property name="default-width">600</property>
+        <property name="default-height">400</property>
+        <child type="titlebar">
+            <object class="GtkHeaderBar" id="header">
+                <child type="end">
+                    <object class="GtkMenuButton" id="menu">
+                        <property name="direction">none</property>
+                    </object>
+                </child>
+            </object>
+        </child>
         <child>
             <object class="GtkBox" id="content_box">
                 <property name="orientation">vertical</property>

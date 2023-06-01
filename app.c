@@ -8,6 +8,28 @@ struct _TokenizerApp
     GtkApplication parent;
 };
 
+
+static void
+preferences_activated (GSimpleAction *action,
+                       GVariant      *parameter,
+                       gpointer       app)
+{
+}
+
+static void
+quit_activated (GSimpleAction *action,
+                GVariant      *parameter,
+                gpointer       app)
+{
+    g_application_quit (G_APPLICATION (app));
+}
+
+static GActionEntry app_entries[] =
+{
+        { "preferences", preferences_activated, NULL, NULL, NULL },
+        { "quit", quit_activated, NULL, NULL, NULL }
+};
+
 G_DEFINE_TYPE(TokenizerApp, tokenizer_app, GTK_TYPE_APPLICATION);
 
 static void
@@ -47,8 +69,25 @@ tokenizer_app_open (GApplication  *app,
 }
 
 static void
+tokenizer_app_startup (GApplication *app)
+{
+    const char *quit_accels[2] = { "<Ctrl>Q", NULL };
+
+    G_APPLICATION_CLASS (tokenizer_app_parent_class)->startup (app);
+
+    g_action_map_add_action_entries (G_ACTION_MAP (app),
+                                     app_entries, G_N_ELEMENTS (app_entries),
+                                     app);
+    gtk_application_set_accels_for_action (GTK_APPLICATION (app),
+                                           "app.quit",
+                                           quit_accels);
+}
+
+
+static void
 tokenizer_app_class_init (TokenizerAppClass *class)
 {
+    G_APPLICATION_CLASS (class)->startup = tokenizer_app_startup;
     G_APPLICATION_CLASS (class)->activate = tokenizer_app_activate;
     G_APPLICATION_CLASS (class)->open = tokenizer_app_open;
 }
@@ -61,3 +100,4 @@ tokenizer_app_new (void)
                          "flags", G_APPLICATION_HANDLES_OPEN,
                          NULL);
 }
+
