@@ -7,9 +7,23 @@ struct _TokenizerAppWindow
 {
     GtkApplicationWindow parent;
     GtkWidget *menu;
+    GtkButton *encode_button;
+    GtkButton *decode_button;
 };
 
 G_DEFINE_TYPE(TokenizerAppWindow, tokenizer_app_window, GTK_TYPE_APPLICATION_WINDOW);
+
+static void
+encode_button_clicked(GtkButton *button,gpointer user_data)
+{
+    g_print("Button clicked\n");
+}
+
+static void
+decode_button_clicked(GtkButton *button,gpointer user_data)
+{
+    g_print("Button clicked\n");
+}
 
 static void
 tokenizer_app_window_init (TokenizerAppWindow *win)
@@ -22,14 +36,18 @@ tokenizer_app_window_init (TokenizerAppWindow *win)
     menu = G_MENU_MODEL (gtk_builder_get_object (builder, "menu"));
     gtk_menu_button_set_menu_model (GTK_MENU_BUTTON (win->menu), menu);
     g_object_unref (builder);
+
+    g_signal_connect(win->encode_button,"clicked",G_CALLBACK(encode_button_clicked),NULL);
+    g_signal_connect(win->decode_button,"clicked",G_CALLBACK(decode_button_clicked),NULL);
 }
 
 static void
 tokenizer_app_window_class_init (TokenizerAppWindowClass *class)
 {
-    gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (class),
-                                                 "/com/thisisericrobert/tokenizer/window.ui");
+    gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (class),"/com/thisisericrobert/tokenizer/window.ui");
     gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), TokenizerAppWindow , menu);
+    gtk_widget_class_bind_template_child(GTK_WIDGET_CLASS(class),TokenizerAppWindow,encode_button);
+    gtk_widget_class_bind_template_child(GTK_WIDGET_CLASS(class),TokenizerAppWindow,decode_button);
 }
 
 TokenizerAppWindow *
@@ -39,7 +57,6 @@ tokenizer_app_window_new (TokenizerApp *app)
 }
 
 void
-tokenizer_app_window_open (TokenizerAppWindow *win,
-                         GFile            *file)
+tokenizer_app_window_open (TokenizerAppWindow *win,GFile *file)
 {
 }

@@ -29,4 +29,4 @@ clean:
 	rm -f $(BUILD_DIR)/$(BUILT_SRC)
 	rm -f $(BUILD_DIR)/$(OBJS)
 	rm -f $(BUILD_DIR)/tokenizer
-	rmdir $(BUILD_DIR) 2>/dev/null || true
+	rm -f $(BUILD_DIR)/resources.o

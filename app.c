@@ -75,12 +75,8 @@ tokenizer_app_startup (GApplication *app)
 
     G_APPLICATION_CLASS (tokenizer_app_parent_class)->startup (app);
 
-    g_action_map_add_action_entries (G_ACTION_MAP (app),
-                                     app_entries, G_N_ELEMENTS (app_entries),
-                                     app);
-    gtk_application_set_accels_for_action (GTK_APPLICATION (app),
-                                           "app.quit",
-                                           quit_accels);
+    g_action_map_add_action_entries (G_ACTION_MAP (app),app_entries, G_N_ELEMENTS (app_entries),app);
+    gtk_application_set_accels_for_action (GTK_APPLICATION (app),"app.quit",quit_accels);
 }
 
 

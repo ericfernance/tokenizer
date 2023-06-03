@@ -16,8 +16,25 @@
         <child>
             <object class="GtkBox" id="content_box">
                 <property name="orientation">vertical</property>
+                <property name="vexpand">true</property>
                 <child>
-                    <object class="GtkStack" id="stack"/>
+                    <object class="GtkButton" id="encode_button">
+                        <property name="label" translatable="yes">Click Me 1!</property>
+                        <property name="receives-default">true</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkTextView" id="text_view">
+                        <property name="vexpand">true</property>
+                        <property name="editable">true</property>
+                        <property name="monospace">true</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkButton" id="decode_button">
+                        <property name="label" translatable="yes">Click Me 2!</property>
+                        <property name="receives-default">true</property>
+                    </object>
                 </child>
             </object>
         </child>
