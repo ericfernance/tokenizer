@@ -31,3 +31,10 @@ clean:
 	rm -f $(BUILD_DIR)/$(OBJS)
 	rm -f $(BUILD_DIR)/tokenizer
 	rm -f $(BUILD_DIR)/resources.o
+
+
+install:
+	cp $(BUILD_DIR)/tokenizer /usr/local/bin
+
+uninstall:
+	rm -f /usr/local/bin/tokenizer
