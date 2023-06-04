@@ -18,24 +18,49 @@
                 <property name="orientation">vertical</property>
                 <property name="vexpand">true</property>
                 <child>
-                    <object class="GtkButton" id="encode_button">
-                        <property name="label" translatable="yes">Click Me 1!</property>
-                        <property name="receives-default">true</property>
+                    <object class="GtkLabel">
+                        <property name="label" translatable="yes">Input</property>
                     </object>
                 </child>
                 <child>
-                    <object class="GtkTextView" id="text_view">
+                    <object class="GtkTextView" id="text_view_in">
                         <property name="vexpand">true</property>
                         <property name="editable">true</property>
                         <property name="monospace">true</property>
                     </object>
                 </child>
                 <child>
-                    <object class="GtkButton" id="decode_button">
-                        <property name="label" translatable="yes">Click Me 2!</property>
-                        <property name="receives-default">true</property>
+                    <object class="GtkLabel">
+                        <property name="label" translatable="yes">Output</property>
                     </object>
                 </child>
+                <child>
+                    <object class="GtkTextView" id="text_view_out">
+                        <property name="vexpand">true</property>
+                        <property name="editable">true</property>
+                        <property name="monospace">true</property>
+                    </object>
+                </child>
+
+                <child>
+                    <object class="GtkBox">
+                        <property name="orientation">horizontal</property>
+                        <property name="hexpand">true</property>
+                        <child>
+                            <object class="GtkButton" id="encode_button">
+                                <property name="label" translatable="yes">Encode</property>
+                                <property name="receives-default">true</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkButton" id="decode_button">
+                                <property name="label" translatable="yes">Decode</property>
+                                <property name="receives-default">true</property>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+
             </object>
         </child>
     </template>

@@ -10,7 +10,8 @@ struct _TokenizerAppWindow
     GtkWidget *menu;
     GtkButton *encode_button;
     GtkButton *decode_button;
-    GtkTextView *text_view;
+    GtkTextView *text_view_in;
+    GtkTextView *text_view_out;
 };
 
 G_DEFINE_TYPE(TokenizerAppWindow, tokenizer_app_window, GTK_TYPE_APPLICATION_WINDOW);
@@ -27,7 +28,7 @@ decode_button_clicked(GtkButton *button,gpointer user_data)
     g_print("Button clicked\n");
     // Cast the user_data back to a GtkTextView pointer
     TokenizerAppWindow *win = TOKENIZER_APP_WINDOW(user_data);
-    GtkTextView *text_view = win->text_view;
+    GtkTextView *text_view = win->text_view_in;
 
     // Get the text buffer associated with the text view
     GtkTextBuffer *buffer = gtk_text_view_get_buffer(text_view);
@@ -39,10 +40,12 @@ decode_button_clicked(GtkButton *button,gpointer user_data)
 
     // Extract the text from the buffer
     gchar *text = gtk_text_buffer_get_text(buffer, &start, &end, FALSE);
-    jwt_decode(text);
+    unsigned char* payload = jwt_decode(text);
 
     // Do something with the text
     g_print("Text value: %s\n", text);
+    GtkTextBuffer *buffer_out = gtk_text_view_get_buffer(win->text_view_out);
+    gtk_text_buffer_set_text(buffer_out,payload,-1);
 
     // Free the allocated text
     g_free(text);
@@ -72,7 +75,8 @@ tokenizer_app_window_class_init (TokenizerAppWindowClass *class)
     gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), TokenizerAppWindow , menu);
     gtk_widget_class_bind_template_child(GTK_WIDGET_CLASS(class),TokenizerAppWindow,encode_button);
     gtk_widget_class_bind_template_child(GTK_WIDGET_CLASS(class),TokenizerAppWindow,decode_button);
-    gtk_widget_class_bind_template_child(GTK_WIDGET_CLASS(class),TokenizerAppWindow,text_view);
+    gtk_widget_class_bind_template_child(GTK_WIDGET_CLASS(class),TokenizerAppWindow,text_view_in);
+    gtk_widget_class_bind_template_child(GTK_WIDGET_CLASS(class),TokenizerAppWindow,text_view_out);
 }
 
 TokenizerAppWindow *
