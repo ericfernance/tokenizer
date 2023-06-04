@@ -2,7 +2,7 @@
 
 #include "app.h"
 #include "win.h"
-#include "deps/b64/b64.h"
+#include "jwt.h"
 
 struct _TokenizerAppWindow
 {
@@ -24,10 +24,6 @@ encode_button_clicked(GtkButton *button,gpointer user_data)
 static void
 decode_button_clicked(GtkButton *button,gpointer user_data)
 {
-    char *encoded = "SGVsbG8gV29ybGQ=";
-    char *result = b64_decode(encoded,strlen(encoded));
-    printf("%s\n",result);
-
     g_print("Button clicked\n");
     // Cast the user_data back to a GtkTextView pointer
     TokenizerAppWindow *win = TOKENIZER_APP_WINDOW(user_data);
@@ -43,6 +39,7 @@ decode_button_clicked(GtkButton *button,gpointer user_data)
 
     // Extract the text from the buffer
     gchar *text = gtk_text_buffer_get_text(buffer, &start, &end, FALSE);
+    jwt_decode(text);
 
     // Do something with the text
     g_print("Text value: %s\n", text);

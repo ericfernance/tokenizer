@@ -4,7 +4,7 @@ CFLAGS = $(shell $(PKGCONFIG) --cflags gtk4)
 LIBS = $(shell $(PKGCONFIG) --libs gtk4)
 GLIB_COMPILE_RESOURCES = $(shell $(PKGCONFIG) --variable=glib_compile_resources gio-2.0)
 
-SRC = jwt.c app.c win.c main.c $(wildcard deps/*/*.c)
+SRC = jwt.c app.c win.c main.c
 BUILT_SRC = resources.c
 
 BUILD_DIR = build
@@ -31,4 +31,3 @@ clean:
 	rm -f $(BUILD_DIR)/$(OBJS)
 	rm -f $(BUILD_DIR)/tokenizer
 	rm -f $(BUILD_DIR)/resources.o
-	rm -rf $(BUILD_DIR)/deps
