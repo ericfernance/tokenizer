@@ -1,3 +1,3 @@
 #include <glib.h>
 
-unsigned char *jwt_decode(char *jwt);
+guchar *jwt_decode(char *jwt);

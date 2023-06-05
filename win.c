@@ -3,6 +3,7 @@
 #include "app.h"
 #include "win.h"
 #include "jwt.h"
+#include <gtksourceview/gtksource.h>
 
 struct _TokenizerAppWindow
 {
@@ -40,12 +41,12 @@ decode_button_clicked(GtkButton *button,gpointer user_data)
 
     // Extract the text from the buffer
     gchar *text = gtk_text_buffer_get_text(buffer, &start, &end, FALSE);
-    unsigned char* payload = jwt_decode(text);
+    guchar* payload = jwt_decode(text);
 
     // Do something with the text
-    g_print("Text value: %s\n", text);
+    g_print("Text value: %.*s\n", (int)strlen(payload), payload);
     GtkTextBuffer *buffer_out = gtk_text_view_get_buffer(win->text_view_out);
-    gtk_text_buffer_set_text(buffer_out,payload,-1);
+    gtk_text_buffer_set_text(buffer_out,payload, strlen(payload));
 
     // Free the allocated text
     g_free(text);
@@ -56,6 +57,8 @@ tokenizer_app_window_init (TokenizerAppWindow *win)
 {
     GtkBuilder *builder;
     GMenuModel *menu;
+
+    //gtk_source_init();
 
     gtk_widget_init_template (GTK_WIDGET (win));
     builder = gtk_builder_new_from_resource ("/com/thisisericrobert/tokenizer/menu.ui");
