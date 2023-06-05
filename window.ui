@@ -28,6 +28,7 @@
                         <property name="vexpand">true</property>
                         <property name="show_line_numbers">true</property>
                         <property name="wrap-mode">char</property>
+                        <property name="monospace">true</property>
                     </object>
                 </child>
                 <child>
@@ -41,6 +42,7 @@
                         <property name="editable">true</property>
                         <property name="show_line_numbers">true</property>
                         <property name="wrap-mode">char</property>
+                        <property name="monospace">true</property>
                     </object>
                 </child>
 
