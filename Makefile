@@ -3,12 +3,9 @@ PKGCONFIG = $(shell which pkg-config)
 CFLAGS = $(shell $(PKGCONFIG) --cflags gtk4 gtksourceview-5)
 LIBS = $(shell $(PKGCONFIG) --libs gtk4 gtksourceview-5 cmocka)
 GLIB_COMPILE_RESOURCES = $(shell $(PKGCONFIG) --variable=glib_compile_resources gio-2.0)
-
 SRC = jwt.c app.c win.c main.c
 BUILT_SRC = resources.c
-
 BUILD_DIR = build
-
 OBJS = $(addprefix $(BUILD_DIR)/, $(BUILT_SRC:.c=.o) $(SRC:.c=.o))
 
 all: $(BUILD_DIR)/tokenizer
@@ -27,18 +24,13 @@ $(BUILD_DIR):
 	mkdir -p $@
 
 clean:
-	rm -f $(BUILD_DIR)/$(BUILT_SRC)
-	rm -f $(BUILD_DIR)/$(OBJS)
-	rm -f $(BUILD_DIR)/tokenizer
-	rm -f $(BUILD_DIR)/resources.o
-
+	rm -rf $(BUILD_DIR)
 
 install:
 	cp $(BUILD_DIR)/tokenizer /usr/local/bin
 
 uninstall:
 	rm -f /usr/local/bin/tokenizer
-
 
 test: test.c
 	$(CC) -o test jwt.c test.c $(CFLAGS) $(LIBS)
